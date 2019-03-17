@@ -1,0 +1,825 @@
+<!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="VSCode+TexLive2018排版系统 书写优雅文章, Xiaoling’s blog">
+    <meta name="description" content="Tex排版系统介绍TeX是由著名的计算机科学家Donald E. Knuth（高德纳）发明的排版系统，利用TeX可以很容易地生成高质量的dvi文件，打印输出。利用dvips，dvipdfmx，pdfLaTeX等程序生成pdf，ps文件，La">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>VSCode+TexLive2018排版系统 书写优雅文章 | Xiaoling’s blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span hide-on-small-only">Xiaoling’s blog</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>Index</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>Tags</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>Categories</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>Archives</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>About</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>Friends</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Xiaoling’s blog</div>
+        <div class="logo-desc">
+            
+            树欲静而风不止。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                Index
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                Tags
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                Categories
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                Archives
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                About
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                Friends
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/mysteriouseye" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="mailto:v1200347@live.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="tencent://message/?uin=1597273688&Site=&Menu=yes" class="tooltipped" data-tooltip="QQ联系我: 1597273688" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike116%2C5%2C5%2C116%2C38/sign=25d3aa251238534398c28f73f27adb1b/00e93901213fb80e6b15389e34d12f2eb83894b6.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        VSCode+TexLive2018排版系统 书写优雅文章
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/计算机/" target="_blank">
+                    <span class="chip bg-color">计算机</span>
+                </a>
+                
+                <a href="/tags/文字系/" target="_blank">
+                    <span class="chip bg-color">文字系</span>
+                </a>
+                
+                <a href="/tags/环境搭建/" target="_blank">
+                    <span class="chip bg-color">环境搭建</span>
+                </a>
+                
+                <a href="/tags/好软推荐/" target="_blank">
+                    <span class="chip bg-color">好软推荐</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/计算机/" class="post-category" target="_blank">
+                        计算机
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2018-10-02
+                </span>
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>Read <span id="busuanzi_value_page_pv"></span>
+				
+            </span></div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Tex排版系统介绍"><a href="#Tex排版系统介绍" class="headerlink" title="Tex排版系统介绍"></a>Tex排版系统介绍</h2><p>TeX是由著名的计算机科学家Donald E. Knuth（高德纳）发明的排版系统，利用TeX可以很容易地生成高质量的dvi文件，打印输出。利用dvips，dvipdfmx，pdfLaTeX等程序生成pdf，ps文件，LaTeX2html生成html文件。 它在学术界十分流行，特别是数学、物理学和计算机科学界。TeX被普遍认为是一个很好的 排版工具，特别是在处理复杂的数学公式时。利用诸如是LaTeX等终端软件，TeX就能够排版出精美的文本。通过CTAN上的宏包可以扩展其功能，可以作幻灯片，定义模板。中文支持可以由CCT、CJK、ctex等来完成。</p>
+<p>另外高德纳是作者的偶像，他是真的大神级人物，有兴趣的同学可以去搜搜他的故事，有能力和想法的可以去拜读他的世界级著作：<code>《计算机程序设计艺术》-《The art of computer programing》</code></p>
+<h2 id="为什么使用Tex排版系统"><a href="#为什么使用Tex排版系统" class="headerlink" title="为什么使用Tex排版系统"></a>为什么使用Tex排版系统</h2><p>目前民间流行的文字排版系统是office word系列，由微软公司开发，虽然word已经十分强大，至今已经完善了不少当年tex的粉丝们所贬低的诟病，但是它在学术界，地位依然不及tex，而且目前来看排版美观度应该来说不如tex精细</p>
+<p>一方面是美观，一方面则是数学方面，在公式的输入上，tex完虐word，不过word2010以后的版本也支持类似tex的公式输入系统，但比不上。</p>
+<p>使用人群上，tex适合大学生写论文，并编译成pdf，特别是计算机系的学生，tex代码书写的模式会让你喜欢上它的。有人问为什么不用markdown，markdown只适合轻量级写作呀，论文还是得tex牛逼呢！</p>
+<p>既然tex这么强大，那么开始安装吧！</p>
+<h2 id="安装TexLive-2018"><a href="#安装TexLive-2018" class="headerlink" title="安装TexLive 2018"></a>安装TexLive 2018</h2><p>我们选择安装texlive 这个发行版本最为强大，大小也很强大。。</p>
+<p>它由国际 TeX 用户组织 TUG 开发,支持不同的操作系统平台</p>
+<p>TeXLive官网下载:<a href="https://www.tug.org/texlive/acquire-iso.html" target="_blank" rel="noopener">https://www.tug.org/texlive/acquire-iso.html</a></p>
+<p>进入官网后选择download from a nearby CTAN mirror，这个网站会自动选择离你最近最快的镜像站点</p>
+<p>下载好后，打开iso（win10可以直接打开，win7请安装软碟通等iso软件），找到根目录的install-tl-advanced.bat，以管理员身份运行。</p>
+<p>打开后会弹出cmd，不要关闭它切记，然后会出现一个gui安装界面，如果你需要全部功能，就默认点安装就行，如果不需要全部，请在第二项那里点击修改按钮，勾掉你不想要的功能。</p>
+<p>安装时间很长，按电脑行而定</p>
+<p>安装完毕后，请在cmd里确认<br>分别输入</p>
+<pre><code class="shell">latex --versionauto
+tex --version
+xelatex --version
+</code></pre>
+<p>确认都安装完毕<br>texlive就算安装完成了</p>
+<h2 id="VSCode安装"><a href="#VSCode安装" class="headerlink" title="VSCode安装"></a>VSCode安装</h2><p>VSCode是什么我就不多说了，这年头如果你是个程序员，不知道它就out啦！</p>
+<p>总之vs大法好！目前增长最迅猛的（pypl统计机构显示vscode使用率已经超过一代文本编辑神器sublime text3）文本编辑器舍我其谁？</p>
+<p>跟我一起念：微软大法好！</p>
+<p>vscode官网：<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">https://code.visualstudio.com/</a></p>
+<p>关于vscode的各种使用姿势，博主后续会更新，让大家感受到各种流行编程语言，一个安装包仅50mb左右的编辑器玩转的爽快感！</p>
+<p>安装及其傻瓜化，下一步下一步就行了</p>
+<p>安装好后，你可以选择按下<code>Ctrl+Shift+x</code>键，左侧弹出扩展一栏，在上面输入<code>LaTeX Workshops</code>搜索，然后安装它，安装好后会提示你重新载入，重新载入即可</p>
+<h2 id="插件配置"><a href="#插件配置" class="headerlink" title="插件配置"></a>插件配置</h2><p>点击文件-&gt;首选项-&gt;设置</p>
+<p>在其中搜索<code>latex-workshop.latex.recipes</code> 并点击Edit setttings.json</p>
+<p>你可以看json中的文档自行配置（在右边输入然后ctrl+s保存才可以更改配置）或者按我的来，标准配置</p>
+<pre><code class="json">{
+    &quot;editor.wordWrap&quot;: &quot;on&quot;,
+    &quot;workbench.startupEditor&quot;: &quot;newUntitledFile&quot;,
+    &quot;latex-workshop.latex.clean.enabled&quot;: true,
+    &quot;latex-workshop.latex.clean.fileTypes&quot;: [
+        &quot;*.aux&quot;,
+        &quot;*.bbl&quot;,
+        &quot;*.blg&quot;,
+        &quot;*.idx&quot;,
+        &quot;*.ind&quot;,
+        &quot;*.lof&quot;,
+        &quot;*.lot&quot;,
+        &quot;*.out&quot;,
+        &quot;*.toc&quot;,
+        &quot;*.acn&quot;,
+        &quot;*.acr&quot;,
+        &quot;*.alg&quot;,
+        &quot;*.glg&quot;,
+        &quot;*.glo&quot;,
+        &quot;*.gls&quot;,
+        &quot;*.ist&quot;,
+        &quot;*.fls&quot;,
+        &quot;*.log&quot;,
+        &quot;*.fdb_latexmk&quot;,
+        &quot;*.gz&quot;
+    ],
+    &quot;latex-workshop.view.pdf.viewer&quot;: &quot;tab&quot;,
+    &quot;latex-workshop.latex.recipes&quot;: [
+ {
+            &quot;name&quot;: &quot;xelatex&quot;,
+            &quot;tools&quot;: [
+              &quot;xelatex&quot;,
+              &quot;xelatex&quot;
+            ]
+          },
+        {
+            &quot;name&quot;: &quot;xelatexb&quot;,
+            &quot;tools&quot;: [
+              &quot;xelatex&quot;,
+              &quot;bibtex&quot;,
+              &quot;xelatex&quot;,
+              &quot;xelatex&quot;
+            ]
+          },
+        {
+          &quot;name&quot;: &quot;latexmk&quot;,
+          &quot;tools&quot;: [
+            &quot;latexmk&quot;
+          ]
+        },
+        {
+          &quot;name&quot;: &quot;pdflatex -&gt; bibtex -&gt; pdflatex*2&quot;,
+          &quot;tools&quot;: [
+            &quot;pdflatex&quot;,
+            &quot;bibtex&quot;,
+            &quot;pdflatex&quot;,
+            &quot;pdflatex&quot;
+          ]
+        }
+      ],
+      &quot;latex-workshop.latex.tools&quot;: [
+        {
+            &quot;name&quot;: &quot;xelatex&quot;,
+            &quot;command&quot;: &quot;xelatex&quot;,
+            &quot;args&quot;: [
+                &quot;-synctex=1&quot;,
+                &quot;-interaction=nonstopmode&quot;,
+                &quot;-file-line-error&quot;,
+                &quot;%DOC%&quot;
+            ]
+        },
+        {
+          &quot;name&quot;: &quot;latexmk&quot;,
+          &quot;command&quot;: &quot;latexmk&quot;,
+          &quot;args&quot;: [
+            &quot;-synctex=1&quot;,
+            &quot;-interaction=nonstopmode&quot;,
+            &quot;-file-line-error&quot;,
+            &quot;-pdf&quot;,
+            &quot;%DOC%&quot;
+          ]
+        },
+        {
+          &quot;name&quot;: &quot;pdflatex&quot;,
+          &quot;command&quot;: &quot;pdflatex&quot;,
+          &quot;args&quot;: [
+            &quot;-synctex=1&quot;,
+            &quot;-interaction=nonstopmode&quot;,
+            &quot;-file-line-error&quot;,
+            &quot;%DOC%&quot;
+          ]
+        },
+        {
+          &quot;name&quot;: &quot;bibtex&quot;,
+          &quot;command&quot;: &quot;bibtex&quot;,
+          &quot;args&quot;: [
+            &quot;%DOCFILE%&quot;
+          ]
+        }
+      ]
+}
+</code></pre>
+<p>配置解释如下:</p>
+<ul>
+<li><p>“<code>latex-workshop.latex.clean.enabled</code>”是否删除每次编译成pdf时生成得到中间文件</p>
+</li>
+<li><p>“<code>latex-workshop.latex.clean.fileTypes</code>“删除哪些文件</p>
+</li>
+<li><p>“<code>latex-workshop.latex.tools</code>“配置排版引擎程序</p>
+</li>
+<li><p>“<code>latex-workshop.latex.recipes</code>“定义排版引擎程序调用顺序</p>
+</li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>文件所在路径和文件名不要有中文，不然会编译失败</p>
+<p>默认使用排版引擎程序调用顺序配置”<code>latex-workshop.latex.recipes</code>“中的第一个进行编译排版，上述配置中第一个<code>xelatex</code>不会对bib形式的参考文献编译排版，如用bib形式的参考文献请把第二个<code>xelatexb</code>移到第一个，否则会报错<br>要让<code>LaTeX</code>编译器支持中文，还需在<code>tex</code>文件头部添加如下代码</p>
+<pre><code class="md">\documentclass[UTF8]{ctexart} /*%ctexart是ctex article的缩写
+或
+\documentclass[UTF8]{article}
+\usepackage{ctex}
+</code></pre>
+<p>LaTeX实例:</p>
+<pre><code class="md">\documentclass[UTF8]{ctexart}
+\author{5john}
+\title{LaTeX中文支持及字体}
+\begin{document}
+\maketitle
+{\kaishu 这里是楷体显示}，{\songti 这里是宋体显示}，{\heiti 这里是黑体显示}，{\fangsong 这里是仿宋显示}，{\lishu 这里是隶书显示}，{\youyuan 这里是幼圆显示}
+\end{document}
+</code></pre>
+<p>经过上述设置，编写好<code>tex</code>文件后，<code>Ctrl+s</code>在保存文件的同时进行编译输出，点击右上角那个放大镜可以预览生成的pdf文件</p>
+<p>如果没有请手动点击左侧<code>tex</code>图标的项目，点击第一项build，展开<br>然后使用<code>Recipe: xelatex</code>模式编译，应该就能出来。不行请检查环境是否配置好</p>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">Reprint please specify: </span>
+                    <a href="https://mysteriouseye.github.io" class="b-link-green">Xiaoling’s blog</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2018/10/02/VSCode+TexLive2018排版系统 书写优雅文章/" class="b-link-green">VSCode+TexLive2018排版系统 书写优雅文章</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">Previous</div>
+            <div class="card">
+                <a href="/2018/10/02/使用Hexo+github/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="使用Hexo+Github一步步搭建属于自己的博客">
+                        
+                        <span class="card-title">使用Hexo+Github一步步搭建属于自己的博客</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">相关步骤：1、安装Node.js和配置好Node.js环境，打开cmd命令行，成功界面如下
+
+ 2、安装Git和配置好Git环境，安装成功的象征就是在电脑上任何位置鼠标右键能够出现如下两个选择
+注意：一般出于安全考虑，只有在Git Bash</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-10-02
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/计算机/" class="post-category" target="_blank">
+                                    计算机
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/计算机/" target="_blank">
+                        <span class="chip bg-color">计算机</span>
+                    </a>
+                    
+                    <a href="/tags/网络/" target="_blank">
+                        <span class="chip bg-color">网络</span>
+                    </a>
+                    
+                    <a href="/tags/转载文/" target="_blank">
+                        <span class="chip bg-color">转载文</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">Next</div>
+            <div class="card">
+                <a href="/2018/09/07/主题示例/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/cover.jpg" class="responsive-img" alt="typora-vue-theme主题介绍">
+                        
+                        <span class="card-title">typora-vue-theme主题介绍</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary"></div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-09-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-user fa-fw"></i>
+                            赵奇
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Typora/" target="_blank">
+                        <span class="chip bg-color">Typora</span>
+                    </a>
+                    
+                    <a href="/tags/Markdown/" target="_blank">
+                        <span class="chip bg-color">Markdown</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">TOC</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xiaolingblog.tk" target="_blank">小凌的Blog</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/mysteriouseye" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="mailto:v1200347@live.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="tencent://message/?uin=1597273688&Site=&Menu=yes" class="tooltipped" data-tooltip="QQ联系我: 1597273688" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

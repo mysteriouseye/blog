@@ -1,0 +1,749 @@
+<!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+    
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="LibreSSL的安装与配置，抛弃Openssl, Xiaoling’s blog">
+    <meta name="description" content="1. 为什么抛弃OpensslOpenssl过去发生过多起漏洞事件，且十分严重2016 年 3 月初 OpenSSL 再次爆出与 2014 年的心脏出血（Heartbleed）同样严重的新漏洞——溺亡（DROWN）！在获悉这一消息的时候第一">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>LibreSSL的安装与配置，抛弃Openssl | Xiaoling’s blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+</head>
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span hide-on-small-only">Xiaoling’s blog</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>Index</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>Tags</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>Categories</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>Archives</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>About</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>Friends</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Xiaoling’s blog</div>
+        <div class="logo-desc">
+            
+            树欲静而风不止。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                Index
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                Tags
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                Categories
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                Archives
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                About
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                Friends
+            </a>
+        </li>
+        
+        
+    </ul>
+
+    <div class="social-link"><a href="https://github.com/mysteriouseye" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="mailto:v1200347@live.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="tencent://message/?uin=1597273688&Site=&Menu=yes" class="tooltipped" data-tooltip="QQ联系我: 1597273688" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+    </nav>
+</header>
+
+
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539404684&di=48e837adeca76b35e648b36b70bfa6b7&imgtype=jpg&er=1&src=http%3A%2F%2Fs6.51cto.com%2Fwyfs02%2FM02%2F47%2FAA%2FwKioL1P9kJCytT66AABD5_CgDX4173.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        LibreSSL的安装与配置，抛弃Openssl
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1,
+    #articleContent h2,
+    #articleContent h3,
+    #articleContent h4,
+    #articleContent h5,
+    #articleContent h6 {
+        padding-top: 76px;
+        margin-top: -76px;
+    }
+
+    #articleContent h1 {
+        line-height: 3.5rem;
+    }
+
+    #articleContent h2 {
+        line-height: 3.2rem;
+    }
+
+    #articleContent h3 {
+        line-height: 2.8rem;
+    }
+
+    #articleContent h4 {
+        line-height: 2.5rem;
+    }
+
+    #articleContent h5 {
+        line-height: 2.2rem;
+    }
+
+    #articleContent h6 {
+        line-height: 1.9rem;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            
+            <div class="article-tag">
+                
+                <a href="/tags/计算机/" target="_blank">
+                    <span class="chip bg-color">计算机</span>
+                </a>
+                
+                <a href="/tags/网络/" target="_blank">
+                    <span class="chip bg-color">网络</span>
+                </a>
+                
+                <a href="/tags/引用文/" target="_blank">
+                    <span class="chip bg-color">引用文</span>
+                </a>
+                
+                <a href="/tags/运维安全/" target="_blank">
+                    <span class="chip bg-color">运维安全</span>
+                </a>
+                
+            </div>
+            
+            <div class="post-info">
+                
+                <span class="post-cate">
+                <!--<span class="post-cate" style="margin-right: 0px">-->
+                    <i class="fa fa-bookmark fa-fw icon-category"></i>
+                    
+                    <a href="/categories/计算机/" class="post-category" target="_blank">
+                        计算机
+                    </a>
+                    
+                </span>
+                
+
+                <span class="post-date">
+                    <i class="fa fa-clock-o fa-fw"></i>2018-10-06
+                </span>
+				
+				
+                    <span id="busuanzi_container_page_pv" class="post-read">
+                    <i class="fa fa-eye fa-fw"></i>Read <span id="busuanzi_value_page_pv"></span>
+				
+            </span></div>
+        </div>
+        <hr>
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="1-为什么抛弃Openssl"><a href="#1-为什么抛弃Openssl" class="headerlink" title="1. 为什么抛弃Openssl"></a><a href="#1-为什么抛弃Openssl" title="1. 为什么抛弃Openssl"></a>1. 为什么抛弃Openssl</h2><p>Openssl过去发生过多起漏洞事件，且十分严重<br>2016 年 3 月初 OpenSSL 再次爆出与 2014 年的心脏出血（Heartbleed）同样严重的新漏洞——溺亡（DROWN）！在获悉这一消息的时候第一时间我去看 LibreSSL 有没有受影响，正如所料——没有（见下图）！这让我觉得 LibreSSL 取代 OpenSSL 更加必要。  </p>
+<p><img src="https://hltj.me/assets/libressl/libressl_no_drown.jpg" alt></p>
+<p>关于 DROWN 溺亡漏洞如果还没了解过，可以参考：</p>
+<p><a href="https://www.openssl.org/news/secadv/20160301.txt" target="_blank" rel="noopener">https://www.openssl.org/news/secadv/20160301.txt</a></p>
+<p><a href="https://www.wosign.com/News/2016-0302-00.htm" target="_blank" rel="noopener">https://www.wosign.com/News/2016-0302-00.htm</a></p>
+<h2 id="2-为什么选择Libressl"><a href="#2-为什么选择Libressl" class="headerlink" title="2. 为什么选择Libressl"></a><a href="#2-为什么选择Libressl" title="2. 为什么选择Libressl"></a>2. 为什么选择Libressl</h2><p>Libressl 其实是openssl的分支，它由OpenBSD的开发者在Openssl出现心脏出血漏洞后fork了一个分支，并且二次开发，旨在做一个比Openssl更安全的替代品。</p>
+<p>LibreSSL 与 OpenSSL 都是和传输层安全（TLS，Transport Layer Security）协议的开源实现，如需了解 TLS 可参见其维基词条或自行搜索。</p>
+<p>Libressl比openssl更加安全， 参考各种资料和报导，libressl并没有受到openssl那几个著名漏洞的影响</p>
+<p>libressl摒弃了openssl对老旧操作系统，如windows 16 macos x classcic等老古董的支持。这使得LibreSSL 的漏洞数与严重程度要比 OpenSSL 少的多、轻的多。如下图对比所示  </p>
+<p><img src="https://hltj.me/assets/libressl/cmp_at_freebsd.png" alt></p>
+<h2 id="3-使用Libressl取代Openssl"><a href="#3-使用Libressl取代Openssl" class="headerlink" title="3.使用Libressl取代Openssl"></a><a href="#3-使用Libressl取代Openssl" title="3.使用Libressl取代Openssl"></a>3.使用Libressl取代Openssl</h2><p>本人的系统是centos 7，如果是Debian系的系统 如ubuntu，则使用不同的包管理器执行操作。</p>
+<p>通常网站的 HTTPS 证书配置在 Nginx 或 HaProxy 上，因此编译二者时用 LibreSSL 取代 OpenSSL 对于网站安全性的价值更大一些，下文就以它们为例。</p>
+<h3 id="1-删除Openssl开发包"><a href="#1-删除Openssl开发包" class="headerlink" title="1).删除Openssl开发包"></a><a href="#1-删除Openssl开发包" title="1).删除Openssl开发包"></a>1).删除Openssl开发包</h3><p>注意，要删掉的是开发包，换句话说，以 -devel 或者 -dev 结尾的，不要把基本包也删了。</p>
+<p>Centos 7:</p>
+<pre><code class="shell">yum remove openssl-devel #可能会删除mysql-devel等包，谨慎，如删除请重新安装
+</code></pre>
+<p>Ubuntu:</p>
+<pre><code class="shell">apt remove libssl-dev
+</code></pre>
+<h3 id="2-编译安装Libressl"><a href="#2-编译安装Libressl" class="headerlink" title="2).编译安装Libressl"></a><a href="#2-编译安装Libressl" title="2).编译安装Libressl"></a>2).编译安装Libressl</h3><p>确保已安装 gcc、wget、make</p>
+<p>如果没有请使用相应的包管理器安装</p>
+<p>编译安装Libressl：</p>
+<pre><code class="shell">wget https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-x.x.x.tar.gz #这里注意 版本号请自行去官方查看，想装哪个就装哪个，但是请注意，如果你要使用HaProxy，那么最好选择2.5.4版本，否则可能不兼容
+tar xvf libressl-x.x.x.tar.gz
+cd libressl-x.x.x
+./configure --prefix=/usr/local #其它选项自行--help查看添加
+make
+make install
+echo /usr/local/lib &gt; /etc/ld.so.conf.d/local.conf
+</code></pre>
+<p>然后查看查看 libressl 的 libssl.so 版本</p>
+<pre><code class="shell">ldconfig -v | fgrep libssl
+</code></pre>
+<p>主版本号至少两位数，例如</p>
+<pre><code class="shell">libssl.so.xx -&gt; libssl.so.xx.x.x
+</code></pre>
+<h3 id="3-编译安装Nginx"><a href="#3-编译安装Nginx" class="headerlink" title="3).编译安装Nginx"></a><a href="#3-编译安装Nginx" title="3).编译安装Nginx"></a>3).编译安装Nginx</h3><p>确保 pcre、zlib 的开发库已安装</p>
+<p>如果没有请使用相应的包管理器安装</p>
+<p>centos：pcre-devel zlib-devel</p>
+<p>ubuntu：zlib1g-dev libpcre3-dev</p>
+<p>编译安装Nginx：</p>
+<pre><code class="shell">wget http://nginx.org/download/nginx-x.xx.x.tar.gz #版本自行选择 最好1.12以上
+tar xvf nginx-x.xx.x.tar.gz
+cd nginx-x.xx.x
+./configure --with-http_ssl_module #必须要这个模块，其它模块请--help自行选择
+make
+make install
+</code></pre>
+<p>验证：ldd /usr/local/nginx/sbin/nginx | fgrep ssl 的输出应该是这样的(参考)：</p>
+<pre><code class="shell">    libssl.so.4x =&gt; /usr/local/lib/libssl.so.4x (0x00007f4fc5684000)
+</code></pre>
+<h3 id="4-编译安装-HaProxy"><a href="#4-编译安装-HaProxy" class="headerlink" title="4).编译安装 HaProxy"></a><a href="#4-编译安装-HaProxy" title="4).编译安装 HaProxy"></a>4).编译安装 HaProxy</h3><p>需要使用 2.4.5 版 LibreSSL，目前最新稳定版的 LibreSSL 与目前最新稳定版的 HaProxy 不兼容。<br>编译安装 HaProxy（目前稳定版为 1.7.5,其它版本自行实验）：</p>
+<pre><code class="shell">wget http://www.haproxy.org/download/1.7/src/haproxy-1.7.5.tar.gz
+tar xvf haproxy-1.7.5.tar.gz
+cd haproxy-1.7.5
+make TARGET=linux \
+    USE_ZLIB=1 \
+    USE_PCRE=1 \
+    USE_OPENSSL=1 \
+    SSL_INC=/usr/local/include \
+    SSL_LIB=/usr/local/lib
+make install
+</code></pre>
+<p>验证：ldd /usr/local/sbin/haproxy | fgrep ssl 应该输出(参考)：</p>
+<pre><code class="shell">libssl.so.xx =&gt; /usr/local/lib/libssl.so.xx(0x00007fd34408f000)
+</code></pre>
+<h2 id="4-存在问题"><a href="#4-存在问题" class="headerlink" title="4.存在问题"></a><a href="#4-存在问题" title="4.存在问题"></a>4.存在问题</h2><p>有些软件可能用了兼容性不好的 OpenSSL API，需要实测下用 LibreSSL 取代后的兼容性如何，比如 HaProxy 与 LibreSSL 2.4.5 兼容，但是与目前最新版 2.5.4 一起编译会有问题。</p>
+<h2 id="5-未来展望"><a href="#5-未来展望" class="headerlink" title="5.未来展望"></a><a href="#5-未来展望" title="5.未来展望"></a>5.未来展望</h2><p>从 LibreSSL 与 OpenSSL 安全漏洞数量及严重程度的对比来看，LibreSSL 要安全很多，从目前来看也应该用 LibreSSL 来取代 OpenSSL。</p>
+<p>但是与 OpenSSL 一样，LibreSSL 也是用 C 语言开发的，而由于语言本身的局限性，C 语言无法为内存安全提供良好的保障。可以说像 TLS 支持这样的重视安全且用于安全领域的底层库用 C 语言开发并不适合。目前来看，对于这一领域的首选开发语言当属 Rust，并且已经有一些进展，比如 Rust TLS ，当然距离成熟稳定乃至流行起来还有很多路要走。</p>
+<p>参考（引用）资料：<a href="http://www.ituring.com.cn/article/468031" target="_blank" rel="noopener">http://www.ituring.com.cn/article/468031</a></p>
+
+            </div>
+            <hr>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">Reprint please specify: </span>
+                    <a href="https://mysteriouseye.github.io" class="b-link-green">Xiaoling’s blog</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2018/10/06/LibreSSL的安装与配置，抛弃Openssl/" class="b-link-green">LibreSSL的安装与配置，抛弃Openssl</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">Previous</div>
+            <div class="card">
+                <a href="/2018/10/06/网站目录用户认证配置（Basic HTTP authentication）/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="网站目录用户认证配置（Basic HTTP authentication）">
+                        
+                        <span class="card-title">网站目录用户认证配置（Basic HTTP authentication）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">1. 为什么需要网站目录验证
+提高网站安全性
+隐藏你不想给别人展示的页面，只有你自己才能进去
+
+2. 安装必备组件首先 你需要htpasswd,这个组件是apache里面的，所以你需要安装httpdCentos ：
+yum install </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-10-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/计算机/" class="post-category" target="_blank">
+                                    计算机
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/计算机/" target="_blank">
+                        <span class="chip bg-color">计算机</span>
+                    </a>
+                    
+                    <a href="/tags/引用文/" target="_blank">
+                        <span class="chip bg-color">引用文</span>
+                    </a>
+                    
+                    <a href="/tags/运维安全/" target="_blank">
+                        <span class="chip bg-color">运维安全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">Next</div>
+            <div class="card">
+                <a href="/2018/10/02/使用Hexo+github/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="使用Hexo+Github一步步搭建属于自己的博客">
+                        
+                        <span class="card-title">使用Hexo+Github一步步搭建属于自己的博客</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">相关步骤：1、安装Node.js和配置好Node.js环境，打开cmd命令行，成功界面如下
+
+ 2、安装Git和配置好Git环境，安装成功的象征就是在电脑上任何位置鼠标右键能够出现如下两个选择
+注意：一般出于安全考虑，只有在Git Bash</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-10-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/计算机/" class="post-category" target="_blank">
+                                    计算机
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/计算机/" target="_blank">
+                        <span class="chip bg-color">计算机</span>
+                    </a>
+                    
+                    <a href="/tags/网络/" target="_blank">
+                        <span class="chip bg-color">网络</span>
+                    </a>
+                    
+                    <a href="/tags/转载文/" target="_blank">
+                        <span class="chip bg-color">转载文</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title">TOC</div>
+            <div id="toc-content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://xiaolingblog.tk" target="_blank">小凌的Blog</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+			
+                <br>
+                <span id="busuanzi_container_site_pv">
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: #fff;"></span> 次,&nbsp;
+                </span>
+				<span id="busuanzi_container_site_uv">
+                    访客数 <span id="busuanzi_value_site_uv" style="color: #fff;"></span> 人.
+                </span>
+			
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/mysteriouseye" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+<a href="mailto:v1200347@live.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <i class="fa fa-envelope-open"></i>
+</a>
+<a href="tencent://message/?uin=1597273688&Site=&Menu=yes" class="tooltipped" data-tooltip="QQ联系我: 1597273688" data-position="top" data-delay="50">
+    <i class="fa fa-qq"></i>
+</a>
+
+<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+    <i class="fa fa-rss"></i>
+</a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title">Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
